@@ -1,1 +1,1 @@
-Default JS content
+function showAlert() { alert('hello world'); }
