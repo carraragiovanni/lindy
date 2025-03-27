@@ -1,1 +1,1 @@
-
+Default JS content
