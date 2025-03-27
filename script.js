@@ -1,1 +1,1 @@
-console.log('in Postman');
+Default JS content
