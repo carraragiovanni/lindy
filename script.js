@@ -1,1 +1,1 @@
-console.log('This is JavaScript update');
+console.log('in Postman');
