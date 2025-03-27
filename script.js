@@ -1,1 +1,1 @@
-function showAlert() { alert('hello world'); }
+console.log('This is JavaScript update');
