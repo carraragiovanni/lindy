@@ -1,1 +1,1 @@
-console.log('This is JavaScript update');
+Default JS content
