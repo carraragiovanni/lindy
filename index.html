@@ -7,7 +7,64 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <html><head><title>Random Pixel Colors</title></head><body><canvas id='pixelCanvas'></canvas></body></html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Pixel Colors</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: white;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="pixelCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('pixelCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size to window size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        function getRandomColor() {
+            return `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`;
+        }
+
+        function fillPixel(x, y) {
+            ctx.fillStyle = getRandomColor();
+            ctx.fillRect(x, y, 1, 1);
+        }
+
+        let x = 0;
+        let y = 0;
+
+        function drawNextPixel() {
+            fillPixel(x, y);
+            
+            x++;
+            if (x >= canvas.width) {
+                x = 0;
+                y++;
+            }
+
+            if (y < canvas.height) {
+                setTimeout(drawNextPixel, 1); // 1ms delay
+            }
+        }
+
+        // Start the process
+        drawNextPixel();
+    </script>
+</body>
+</html>
   <script src="script.js"></script>
 </body>
 </html>
