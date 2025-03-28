@@ -7,7 +7,67 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <html><head><title>Random Pixel Colors</title></head><body><canvas id='pixelCanvas'></canvas></body></html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Pixels</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: white;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="pixelCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('pixelCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size to window size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        function getRandomColor() {
+            return `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`;
+        }
+
+        function getRandomPosition() {
+            return {
+                x: Math.floor(Math.random() * canvas.width),
+                y: Math.floor(Math.random() * canvas.height)
+            };
+        }
+
+        function fillPixel() {
+            const pos = getRandomPosition();
+            ctx.fillStyle = getRandomColor();
+            ctx.fillRect(pos.x, pos.y, 1, 1);
+        }
+
+        let pixelsPlaced = 0;
+        const totalPixels = canvas.width * canvas.height;
+
+        function drawNextPixel() {
+            fillPixel();
+            pixelsPlaced++;
+
+            if (pixelsPlaced < totalPixels) {
+                setTimeout(drawNextPixel, 1); // 1ms delay
+            }
+        }
+
+        // Start the process
+        drawNextPixel();
+    </script>
+</body>
+</html>
   <script src="script.js"></script>
 </body>
 </html>
