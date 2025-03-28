@@ -1,1 +1,1 @@
-const funnyAlerts = ['Why did the W start spinning? Because it got tired of standing still!', 'Warning: Excessive spinning may cause dizziness to the letter W', 'Plot twist: The W is actually an M doing a handstand', 'Breaking news: Letter W demands equal rotation rights', 'Congratulations! You\'ve found the spinning W. What a time to be alive!']; document.body.addEventListener('click', () => { const randomAlert = funnyAlerts[Math.floor(Math.random() * funnyAlerts.length)]; alert(randomAlert); });
+Default JS content
