@@ -1,1 +1,1 @@
-Default JS content
+document.getElementById('toggleBtn').addEventListener('click',function(){const wEl=document.getElementById('myW');wEl.classList.toggle('animate');});
