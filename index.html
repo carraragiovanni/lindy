@@ -7,7 +7,60 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <html><head><link rel="stylesheet" href="style.css"></head><body><div id="grid"></div><script src="script.js"></script></body></html>
+  <!DOCTYPE html>
+<html>
+<head>
+    <title>Random Pixel Colors</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        .pixel {
+            width: 10px;
+            height: 10px;
+            float: left;
+            background: white;
+        }
+        #container {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script>
+        const container = document.getElementById('container');
+        const width = Math.ceil(window.innerWidth / 10);
+        const height = Math.ceil(window.innerHeight / 10);
+        const pixels = [];
+        const uncoloredIndices = [];
+        
+        for (let i = 0; i < width * height; i++) {
+            const pixel = document.createElement('div');
+            pixel.className = 'pixel';
+            container.appendChild(pixel);
+            pixels.push(pixel);
+            uncoloredIndices.push(i);
+        }
+        
+        function colorNextPixel() {
+            if (uncoloredIndices.length > 0) {
+                const randomIndex = Math.floor(Math.random() * uncoloredIndices.length);
+                const pixelIndex = uncoloredIndices[randomIndex];
+                uncoloredIndices.splice(randomIndex, 1);
+                
+                const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+                pixels[pixelIndex].style.backgroundColor = randomColor;
+                setTimeout(colorNextPixel, 1);
+            }
+        }
+        
+        colorNextPixel();
+    </script>
+</body>
+</html>
   <script src="script.js"></script>
 </body>
 </html>
