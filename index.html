@@ -7,7 +7,95 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <html><head><title>Simple 2D Animation</title></head><body><canvas id='animationCanvas'></canvas></body></html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple 2D Animation</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #1a1a1a;
+        }
+        
+        .circle {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff3366, #ff6633);
+            border-radius: 50%;
+            position: absolute;
+            animation: bounce 2s infinite ease-in-out,
+                       moveHorizontal 3s infinite linear;
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.5);
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                top: 20px;
+                transform: scale(1);
+            }
+            50% {
+                top: calc(100vh - 70px);
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes moveHorizontal {
+            0% {
+                left: 0;
+            }
+            50% {
+                left: calc(100vw - 50px);
+            }
+            100% {
+                left: 0;
+            }
+        }
+
+        .trail {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 51, 102, 0.3);
+            animation: fadeOut 1s infinite linear;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="circle"></div>
+    <script>
+        const circle = document.querySelector('.circle');
+        
+        function createTrail() {
+            const trail = document.createElement('div');
+            trail.className = 'trail';
+            trail.style.left = circle.offsetLeft + 20 + 'px';
+            trail.style.top = circle.offsetTop + 20 + 'px';
+            document.body.appendChild(trail);
+            
+            setTimeout(() => {
+                trail.remove();
+            }, 1000);
+        }
+
+        setInterval(createTrail, 50);
+    </script>
+</body>
+</html>
   <script src="script.js"></script>
 </body>
 </html>
