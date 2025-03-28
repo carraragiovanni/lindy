@@ -7,44 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!DOCTYPE html>
-<html>
-<head>
-    <title>Animated T</title>
-    <style>
-        .animated-t {
-            font-size: 100px;
-            font-weight: bold;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: rotate-scale 3s infinite linear;
-        }
-        @keyframes rotate-scale {
-            0% {
-                transform: translate(-50%, -50%) rotate(0deg) scale(1);
-            }
-            50% {
-                transform: translate(-50%, -50%) rotate(180deg) scale(1.5);
-            }
-            100% {
-                transform: translate(-50%, -50%) rotate(360deg) scale(1);
-            }
-        }
-        body {
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    </style>
-</head>
-<body>
-    <div class="animated-t">T</div>
-</body>
-</html>
+  <html><head><link rel="stylesheet" href="style.css"></head><body><div id="myT" class="animate">T</div><button id="toggleBtn">Toggle Animation</button><script src="script.js"></script></body></html>
   <script src="script.js"></script>
 </body>
 </html>
