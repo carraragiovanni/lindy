@@ -7,7 +7,54 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  Default body content
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated R</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        
+        .animated-r {
+            font-size: 100px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            color: #333;
+            animation: rotateAndScale 3s infinite linear;
+            display: inline-block;
+        }
+
+        @keyframes rotateAndScale {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+            25% {
+                transform: rotate(90deg) scale(1.5);
+            }
+            50% {
+                transform: rotate(180deg) scale(1);
+            }
+            75% {
+                transform: rotate(270deg) scale(0.5);
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-r">R</div>
+</body>
+</html>
   <script src="script.js"></script>
 </body>
 </html>
