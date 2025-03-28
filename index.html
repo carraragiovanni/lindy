@@ -7,7 +7,124 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <html><head><title>3D Animation</title></head><body><canvas id='canvas3d'></canvas></body></html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Animation</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            perspective: 1000px;
+            overflow: hidden;
+        }
+
+        .cube {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 8s infinite linear;
+        }
+
+        .face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: white;
+            text-shadow: 0 0 10px #fff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .front { transform: translateZ(100px); background: rgba(255, 0, 0, 0.3); }
+        .back { transform: translateZ(-100px) rotateY(180deg); background: rgba(0, 255, 0, 0.3); }
+        .right { transform: translateX(100px) rotateY(90deg); background: rgba(0, 0, 255, 0.3); }
+        .left { transform: translateX(-100px) rotateY(-90deg); background: rgba(255, 255, 0, 0.3); }
+        .top { transform: translateY(-100px) rotateX(90deg); background: rgba(255, 0, 255, 0.3); }
+        .bottom { transform: translateY(100px) rotateX(-90deg); background: rgba(0, 255, 255, 0.3); }
+
+        @keyframes rotate {
+            0% {
+                transform: rotateX(0) rotateY(0) rotateZ(0);
+            }
+            33% {
+                transform: rotateX(360deg) rotateY(180deg) rotateZ(90deg);
+            }
+            66% {
+                transform: rotateX(180deg) rotateY(360deg) rotateZ(270deg);
+            }
+            100% {
+                transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+            }
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            animation: twinkle 1s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        .stars::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            box-shadow: 
+                10vw 10vh 1px white,
+                20vw 20vh 1px white,
+                30vw 30vh 1px white,
+                40vw 40vh 1px white,
+                50vw 50vh 1px white,
+                60vw 60vh 1px white,
+                70vw 70vh 1px white,
+                80vw 80vh 1px white,
+                90vw 90vh 1px white,
+                15vw 15vh 1px white,
+                25vw 25vh 1px white,
+                35vw 35vh 1px white,
+                45vw 45vh 1px white,
+                55vw 55vh 1px white,
+                65vw 65vh 1px white,
+                75vw 75vh 1px white,
+                85vw 85vh 1px white,
+                95vw 95vh 1px white;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="cube">
+        <div class="face front">Front</div>
+        <div class="face back">Back</div>
+        <div class="face right">Right</div>
+        <div class="face left">Left</div>
+        <div class="face top">Top</div>
+        <div class="face bottom">Bottom</div>
+    </div>
+</body>
+</html>
   <script src="script.js"></script>
 </body>
 </html>
