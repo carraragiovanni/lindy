@@ -1,1 +1,1 @@
-Default JS content
+const face = document.getElementById('face'); setInterval(() => { const faces = ['( ͡° ͜ʖ ͡°)', '(｡◕‿◕｡)', '(づ｡◕‿‿◕｡)づ', '(ᵔᴥᵔ)', '(◕‿◕✿)', '(⌐■_■)', '(~˘▾˘)~']; face.textContent = faces[Math.floor(Math.random() * faces.length)]; }, 3000);
