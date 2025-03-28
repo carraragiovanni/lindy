@@ -1,1 +1,1 @@
-Default JS content
+console.log('Hello from the special character face');
