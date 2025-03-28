@@ -1,1 +1,0 @@
-document.getElementById('toggleBtn').addEventListener('click',function(){const tEl=document.getElementById('myT');tEl.classList.toggle('animate');});
