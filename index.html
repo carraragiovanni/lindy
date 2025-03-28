@@ -7,7 +7,62 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Pulsing Circle</title></head><body><div class='circle'></div></body></html>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Pixel Colors</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: white;
+        }
+        .pixel {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function createPixel(x, y) {
+            const pixel = document.createElement('div');
+            pixel.className = 'pixel';
+            pixel.style.left = x + 'px';
+            pixel.style.top = y + 'px';
+            pixel.style.backgroundColor = getRandomColor();
+            document.body.appendChild(pixel);
+        }
+
+        window.onload = function() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            let count = 0;
+
+            for(let y = 0; y < height; y++) {
+                for(let x = 0; x < width; x++) {
+                    setTimeout(() => {
+                        createPixel(x, y);
+                    }, count);
+                    count++;
+                }
+            }
+        };
+    </script>
+</body>
+</html>
   <script src="script.js"></script>
 </body>
 </html>
