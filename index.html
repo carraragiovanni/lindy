@@ -8,60 +8,52 @@
 </head>
 <body>
   <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Pixel Colors</title>
     <style>
         body {
             margin: 0;
             overflow: hidden;
+        }
+        .pixel {
+            width: 10px;
+            height: 10px;
+            float: left;
             background: white;
         }
-        canvas {
-            display: block;
+        #container {
+            width: 100vw;
+            height: 100vh;
         }
     </style>
 </head>
 <body>
-    <canvas id="pixelCanvas"></canvas>
+    <div id="container"></div>
     <script>
-        const canvas = document.getElementById('pixelCanvas');
-        const ctx = canvas.getContext('2d');
-
-        // Set canvas size to window size
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        function getRandomColor() {
-            return `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`;
+        const container = document.getElementById('container');
+        const width = Math.ceil(window.innerWidth / 10);
+        const height = Math.ceil(window.innerHeight / 10);
+        const pixels = [];
+        
+        for (let i = 0; i < width * height; i++) {
+            const pixel = document.createElement('div');
+            pixel.className = 'pixel';
+            container.appendChild(pixel);
+            pixels.push(pixel);
         }
-
-        function fillPixel(x, y) {
-            ctx.fillStyle = getRandomColor();
-            ctx.fillRect(x, y, 1, 1);
-        }
-
-        let x = 0;
-        let y = 0;
-
-        function drawNextPixel() {
-            fillPixel(x, y);
-            
-            x++;
-            if (x >= canvas.width) {
-                x = 0;
-                y++;
-            }
-
-            if (y < canvas.height) {
-                setTimeout(drawNextPixel, 1); // 1ms delay
+        
+        let index = 0;
+        function colorNextPixel() {
+            if (index < pixels.length) {
+                const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+                pixels[index].style.backgroundColor = randomColor;
+                index++;
+                setTimeout(colorNextPixel, 1);
             }
         }
-
-        // Start the process
-        drawNextPixel();
+        
+        colorNextPixel();
     </script>
 </body>
 </html>
