@@ -1,1 +1,1 @@
-document.getElementById('toggleBtn').addEventListener('click',function(){const wEl=document.getElementById('myW');wEl.classList.toggle('animate');});
+// No JavaScript needed for this animation as it's handled by CSS
