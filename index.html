@@ -7,72 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!DOCTYPE html>
-<html>
-<head>
-    <title>Simple 2D Animation</title>
-    <style>
-        canvas {
-            border: 2px solid black;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-        }
-        body {
-            margin: 0;
-            background: #f0f0f0;
-        }
-    </style>
-</head>
-<body>
-    <canvas id="canvas" width="400" height="400"></canvas>
-    <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        
-        const circle = {
-            x: 200,
-            y: 200,
-            radius: 20,
-            dx: 4,
-            dy: 3,
-            color: '#ff0000'
-        };
-        
-        function getRandomColor() {
-            return '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
-        }
-        
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            circle.x += circle.dx;
-            circle.y += circle.dy;
-            
-            if(circle.x + circle.radius > canvas.width || circle.x - circle.radius < 0) {
-                circle.dx *= -1;
-                circle.color = getRandomColor();
-            }
-            if(circle.y + circle.radius > canvas.height || circle.y - circle.radius < 0) {
-                circle.dy *= -1;
-                circle.color = getRandomColor();
-            }
-            
-            ctx.beginPath();
-            ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
-            ctx.fillStyle = circle.color;
-            ctx.fill();
-            ctx.closePath();
-            
-            requestAnimationFrame(animate);
-        }
-        
-        animate();
-    </script>
-</body>
-</html>
+  <html><head><title>ASCII Face</title></head><body><div id='face'>( ͡° ͜ʖ ͡°)</div></body></html>
   <script src="script.js"></script>
 </body>
 </html>
