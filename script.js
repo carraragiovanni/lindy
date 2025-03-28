@@ -1,1 +1,1 @@
-// No JavaScript needed for this animation as it's handled by CSS
+Default JS content
