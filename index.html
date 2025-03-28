@@ -8,112 +8,124 @@
 </head>
 <body>
   <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auto Pong</title>
     <style>
-        canvas {
-            border: 2px solid white;
-            background: black;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
         body {
-            background: #333;
             margin: 0;
             overflow: hidden;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        canvas {
+            border: 2px solid white;
         }
     </style>
 </head>
 <body>
-    <canvas id="pong" width="800" height="400"></canvas>
+    <canvas id="pongCanvas" width="800" height="400"></canvas>
     <script>
-        const canvas = document.getElementById('pong');
+        const canvas = document.getElementById('pongCanvas');
         const ctx = canvas.getContext('2d');
-        
-        const ball = {
-            x: 400,
-            y: 200,
+
+        const paddleHeight = 80;
+        const paddleWidth = 10;
+        const ballSize = 10;
+
+        let ball = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
             dx: 5,
-            dy: 3,
-            radius: 10
+            dy: 3
         };
-        
-        const paddles = [{
-            x: 50,
-            y: 150,
-            width: 10,
-            height: 100,
-            speed: 4
-        }, {
-            x: 740,
-            y: 150,
-            width: 10,
-            height: 100,
-            speed: 4
-        }];
-        
+
+        let leftPaddle = {
+            y: canvas.height / 2 - paddleHeight / 2
+        };
+
+        let rightPaddle = {
+            y: canvas.height / 2 - paddleHeight / 2
+        };
+
         function drawBall() {
-            ctx.beginPath();
-            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
             ctx.fillStyle = 'white';
-            ctx.fill();
-            ctx.closePath();
+            ctx.fillRect(ball.x, ball.y, ballSize, ballSize);
         }
-        
+
         function drawPaddles() {
-            paddles.forEach(paddle => {
-                ctx.fillStyle = 'white';
-                ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
-            });
+            ctx.fillStyle = 'white';
+            // Left paddle
+            ctx.fillRect(0, leftPaddle.y, paddleWidth, paddleHeight);
+            // Right paddle
+            ctx.fillRect(canvas.width - paddleWidth, rightPaddle.y, paddleWidth, paddleHeight);
         }
-        
-        function update() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
+
+        function movePaddles() {
+            // Left paddle AI
+            if (ball.y > leftPaddle.y + paddleHeight / 2) {
+                leftPaddle.y += 5;
+            } else if (ball.y < leftPaddle.y + paddleHeight / 2) {
+                leftPaddle.y -= 5;
+            }
+
+            // Right paddle AI
+            if (ball.y > rightPaddle.y + paddleHeight / 2) {
+                rightPaddle.y += 5;
+            } else if (ball.y < rightPaddle.y + paddleHeight / 2) {
+                rightPaddle.y -= 5;
+            }
+
+            // Keep paddles within canvas
+            leftPaddle.y = Math.max(0, Math.min(canvas.height - paddleHeight, leftPaddle.y));
+            rightPaddle.y = Math.max(0, Math.min(canvas.height - paddleHeight, rightPaddle.y));
+        }
+
+        function moveBall() {
             ball.x += ball.dx;
             ball.y += ball.dy;
-            
-            // Ball collision with top and bottom
-            if(ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
-                ball.dy *= -1;
+
+            // Collision with top and bottom
+            if (ball.y <= 0 || ball.y + ballSize >= canvas.height) {
+                ball.dy = -ball.dy;
             }
-            
-            // Ball collision with paddles
-            paddles.forEach(paddle => {
-                if(ball.x + ball.radius > paddle.x && 
-                   ball.x - ball.radius < paddle.x + paddle.width &&
-                   ball.y > paddle.y &&
-                   ball.y < paddle.y + paddle.height) {
-                    ball.dx *= -1;
-                }
-            });
-            
-            // Ball resets if it goes past paddles
-            if(ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
-                ball.x = canvas.width/2;
-                ball.y = canvas.height/2;
+
+            // Collision with paddles
+            if (ball.x <= paddleWidth && ball.y + ballSize >= leftPaddle.y && ball.y <= leftPaddle.y + paddleHeight) {
+                ball.dx = -ball.dx;
             }
-            
-            // AI movement
-            paddles.forEach(paddle => {
-                const targetY = ball.y - paddle.height/2;
-                if(targetY > paddle.y) {
-                    paddle.y = Math.min(paddle.y + paddle.speed, canvas.height - paddle.height);
-                }
-                if(targetY < paddle.y) {
-                    paddle.y = Math.max(paddle.y - paddle.speed, 0);
-                }
-            });
-            
+            if (ball.x + ballSize >= canvas.width - paddleWidth && ball.y + ballSize >= rightPaddle.y && ball.y <= rightPaddle.y + paddleHeight) {
+                ball.dx = -ball.dx;
+            }
+
+            // Reset ball if it goes past paddles
+            if (ball.x < 0 || ball.x > canvas.width) {
+                ball.x = canvas.width / 2;
+                ball.y = canvas.height / 2;
+                ball.dx = -ball.dx;
+            }
+        }
+
+        function draw() {
+            // Clear canvas
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            movePaddles();
+            moveBall();
             drawBall();
             drawPaddles();
-            requestAnimationFrame(update);
+
+            requestAnimationFrame(draw);
         }
-        
-        update();
+
+        // Start the game
+        draw();
     </script>
 </body>
 </html>
