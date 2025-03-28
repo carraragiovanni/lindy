@@ -1,1 +1,1 @@
-Default JS content
+document.addEventListener('DOMContentLoaded', function() { const box = document.querySelector('.strange-box'); let rotation = 0; let scale = 1; let hue = 0; function animate() { rotation += 2; scale = 1 + Math.sin(Date.now() / 500) * 0.3; hue = (hue + 1) % 360; box.style.transform = 'rotate(' + rotation + 'deg) scale(' + scale + ')'; box.style.backgroundColor = 'hsl(' + hue + ', 70%, 50%)'; requestAnimationFrame(animate); } animate(); });
