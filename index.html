@@ -7,7 +7,116 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <html><head><title>Auto Pong</title></head><body><canvas id='pongCanvas'></canvas></body></html>
+  <!DOCTYPE html>
+<html>
+<head>
+    <title>Auto Pong</title>
+    <style>
+        canvas {
+            border: 2px solid white;
+            background: black;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        body {
+            background: #333;
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="pong" width="800" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById('pong');
+        const ctx = canvas.getContext('2d');
+        
+        const ball = {
+            x: 400,
+            y: 200,
+            dx: 5,
+            dy: 3,
+            radius: 10
+        };
+        
+        const paddles = [{
+            x: 50,
+            y: 150,
+            width: 10,
+            height: 100,
+            speed: 4
+        }, {
+            x: 740,
+            y: 150,
+            width: 10,
+            height: 100,
+            speed: 4
+        }];
+        
+        function drawBall() {
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.closePath();
+        }
+        
+        function drawPaddles() {
+            paddles.forEach(paddle => {
+                ctx.fillStyle = 'white';
+                ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
+            });
+        }
+        
+        function update() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ball.x += ball.dx;
+            ball.y += ball.dy;
+            
+            // Ball collision with top and bottom
+            if(ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
+                ball.dy *= -1;
+            }
+            
+            // Ball collision with paddles
+            paddles.forEach(paddle => {
+                if(ball.x + ball.radius > paddle.x && 
+                   ball.x - ball.radius < paddle.x + paddle.width &&
+                   ball.y > paddle.y &&
+                   ball.y < paddle.y + paddle.height) {
+                    ball.dx *= -1;
+                }
+            });
+            
+            // Ball resets if it goes past paddles
+            if(ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+                ball.x = canvas.width/2;
+                ball.y = canvas.height/2;
+            }
+            
+            // AI movement
+            paddles.forEach(paddle => {
+                const targetY = ball.y - paddle.height/2;
+                if(targetY > paddle.y) {
+                    paddle.y = Math.min(paddle.y + paddle.speed, canvas.height - paddle.height);
+                }
+                if(targetY < paddle.y) {
+                    paddle.y = Math.max(paddle.y - paddle.speed, 0);
+                }
+            });
+            
+            drawBall();
+            drawPaddles();
+            requestAnimationFrame(update);
+        }
+        
+        update();
+    </script>
+</body>
+</html>
   <script src="script.js"></script>
 </body>
 </html>
